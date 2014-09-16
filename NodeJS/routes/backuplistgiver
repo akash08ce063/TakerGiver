@@ -1,0 +1,64 @@
+exports.listgiver = function(req,res){
+	var multiple;
+
+	var mysql= require('mysql');
+	var connection = mysql.createConnection({
+  			host : "localhost",
+  			user : "root",
+  			password: "",
+  			database : 'bittu',
+  			debug : true,
+  	});
+
+  	connection.connect();
+    var names = 'akahs' ; 
+
+   var strQuery = "SELECT `address` FROM `information` WHERE `name`=names";
+  	connection.query( strQuery, function(err, rows){
+  		if(err)	{
+  			throw err;
+  		}else{
+		  		    console.log( "Row value" + rows[0].id );
+            multiple = rows[0].id ;
+            console.log("Type of the multiple is -- "+typeof(multiple));
+            ///
+             var query = "SELECT * FROM `photo` WHERE `user_id`= ?";  
+      
+        connection1.query( query, [multiple],function(err, rowss){
+           console.log("multiplications - " + multiple);
+
+          if(err) {
+            throw err;
+          }else{
+            json8 = JSON.stringify(rowss);
+            console.log( "jason data" + json8 );
+            res.writeHead(200, { 'Content-Type': 'application/json', "Access-Control-Allow-Origin":"*" });
+    
+            res.write(json8);
+
+            res.end();
+
+          }
+		 	 });
+
+  			connection1.end( );
+			/////
+
+  		}
+
+  		
+ 	 });
+
+  	connection.end( );
+ 	
+ var connection1 = mysql.createConnection({
+  			host : "localhost",
+  			user : "root",
+  			password: "",
+  			database : 'bittu',
+  			debug : true,
+  	});
+ 	
+  
+
+}

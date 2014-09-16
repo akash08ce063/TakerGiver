@@ -1,0 +1,46 @@
+exports.listgiver = function(req,res){
+	var multiple;
+
+	var mysql= require('mysql');
+	var databasecon = require('../databaseconfig');
+    var connection = mysql.createConnection(databasecon.databaseconfigg);
+
+
+  	connection.connect();
+
+  	
+
+   var strQuery = "SELECT `name` FROM `givers`";	
+  
+  	connection.query( strQuery, function(err, rows){
+  		if(err)	{
+  			throw err;
+  		}else{
+		  			json1 = JSON.stringify(rows);
+		  			console.log(json1);
+			/////
+
+			res.writeHead(200, { 'Content-Type': 'application/json', "Access-Control-Allow-Origin":"*" });
+   	
+   	 		res.write(json1);
+
+     		res.end();
+  
+
+  	connection.end( );
+  		}
+
+ 	 });
+
+ 	
+ var connection1 = mysql.createConnection({
+  			  host : "us-cdbr-east-05.cleardb.net",
+        user : "b92521e8ca1fc4",
+        password: "5d7b5582",
+        database : 'heroku_ef1aa411bc0b466',
+        debug : true,
+  	});
+ 	
+  	 
+
+}
